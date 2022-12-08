@@ -1,16 +1,19 @@
 import React, { useEffect, useMemo } from 'react';
-import { List, makeStyles } from '@material-ui/core';
+import { List, makeStyles, Theme, useMediaQuery } from '@material-ui/core';
 import { Conversation } from '@lib/types';
 import { ConversationCard } from '@components/ConversationCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 320,
-    minWidth: 320,
+    width: '100%',
     height: '100%',
     overflowY: 'auto',
     padding: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.up('sm')]: {
+      width: 320,
+      minWidth: 320,
+    },
   },
 }));
 
@@ -31,9 +34,11 @@ export const ConversationsList: React.FC<ConversationsListProps> = ({
     [conversations],
   );
 
+  const isDesktop = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+
   // auto select first conversations when conversations are loaded
   useEffect(() => {
-    if (sortedConversations.length && !selectedId) {
+    if (sortedConversations.length && !selectedId && isDesktop) {
       onConversationClick?.(sortedConversations[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
