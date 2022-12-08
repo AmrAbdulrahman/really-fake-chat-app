@@ -24,7 +24,7 @@ const useStyles = makeStyles(
     },
     dialogContentWrapper: {
       paddingTop: 48,
-      maxHeight: '100%',
+      height: '100%',
     },
   }),
   {
